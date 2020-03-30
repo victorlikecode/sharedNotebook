@@ -11,4 +11,8 @@
 		<put-attribute name="footer" value="/WEB-INF/template/footer.jsp"/> 
 	</definition>
 
+	<definition name="fia.content" extends="base.definition">
+		<put-attribute name="title" value="測試內容"/>
+		<put-attribute name="body" value="/WEB-INF/page/content/content.jsp"/>
+	</definition>
 </tiles-definitions>
