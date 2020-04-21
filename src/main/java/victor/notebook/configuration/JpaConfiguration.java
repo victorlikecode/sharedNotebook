@@ -1,6 +1,7 @@
 package victor.notebook.configuration;
 
 import java.sql.SQLException;
+import java.util.Properties;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -19,7 +20,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
-@EnableTransactionManagement
+@EnableTransactionManagement(proxyTargetClass=true)
 /**
  * 設定 spring 資料庫連線資訊
  * @author victortsai
@@ -34,12 +35,15 @@ public class JpaConfiguration {
 	
 	@Value("${datasource.jdbc.driver.name}")
 	private String driverClassName;
-	@Value("${datasource.url0}")
+	@Value("${datasource.url}")
 	private String url;
-	@Value("${datasource.username0}")
+	@Value("${datasource.username}")
 	private String username;
-	@Value("${datasource.password0}")
+	@Value("${datasource.password}")
 	private String password;
+	
+	@Value("${hibernate.dialect}")
+	private String dialect;
 	
 	@Bean
 	public DataSource dataSource() throws Exception{
@@ -48,26 +52,28 @@ public class JpaConfiguration {
 		dataSource.setUrl(url);
 		dataSource.setUsername(username);
 		dataSource.setPassword(password);
-		dataSource.setLoginTimeout(20);
 		return dataSource;
 	}
 	
 	@Bean
-	public LocalContainerEntityManagerFactoryBean entityManagerFactory() throws Exception {
+	public LocalContainerEntityManagerFactoryBean entityManager() throws Exception {
 		LocalContainerEntityManagerFactoryBean emBean = new LocalContainerEntityManagerFactoryBean();
 		emBean.setDataSource(dataSource());
 		JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		emBean.setJpaVendorAdapter(vendorAdapter);
 		HibernateJpaDialect jpaDialect = new HibernateJpaDialect();
 		emBean.setJpaDialect(jpaDialect);
+		emBean.setPersistenceUnitName("unitName");
+		emBean.setPackagesToScan("victor.notebook.domain");
+		emBean.setJpaProperties(additionalProperties());
 		return emBean;
 	}
 	
 	@Bean
-	public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+	public JpaTransactionManager transactionManager() throws Exception {
 	    JpaTransactionManager transactionManager = new JpaTransactionManager();
-	    transactionManager.setEntityManagerFactory(emf);
-	 
+	    transactionManager.setEntityManagerFactory(entityManager().getObject());
+	    
 	    return transactionManager;
 	}
 	 
@@ -75,5 +81,15 @@ public class JpaConfiguration {
 	public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
 	    return new PersistenceExceptionTranslationPostProcessor();
 	}
+	
+	final Properties additionalProperties() {
+        final Properties hibernateProperties = new Properties();
+        hibernateProperties.setProperty("hibernate.hbm2ddl.auto","false");
+        hibernateProperties.setProperty("hibernate.dialect", dialect);
+        hibernateProperties.setProperty("hibernate.cache.use_second_level_cache", "false");
+        
+    
+        return hibernateProperties;
+    }
 	
 }
