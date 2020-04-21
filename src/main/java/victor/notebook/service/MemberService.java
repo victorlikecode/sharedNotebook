@@ -11,21 +11,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 import victor.notebook.domain.Member;
 import victor.notebook.persistence.DAO.MemberDAO;
+import victor.notebook.repository.IMemberDAO;
 import victor.notebook.util.EncryptUtil;
 
 @Service
-public class MemberService {
+public class MemberService{
 
 	@Autowired
-	private MemberDAO mbrdao;
+	private IMemberDAO mbrdao;
+	
 	@Autowired
 	private EncryptUtil encryptUtil;
 	
-	public int getCount() {
-		return mbrdao.getcount();
-	}
+//	public int getCount() {
+//		return mbrdao.getcount();
+//	}
 	
-	@Transactional(readOnly=false,rollbackFor=Exception.class)
+//	@Transactional(readOnly=false,rollbackFor=Exception.class)
 	public void saveOrUpdate(Member memberForm) {
 		Member memberToEdit = null ;
 		if(memberForm.getAction().equalsIgnoreCase("add")) {
@@ -72,7 +74,7 @@ public class MemberService {
 		if(StringUtils.isNoneBlank(userId)&&StringUtils.isNoneBlank(password)) {
 			result.put("status", "invalid Inputs");
 		}
-		// if member is null 
+		// if member is not null 
 		Member loginMbr = mbrdao.getMemberByuserId(userId);
 		if(Objects.nonNull(loginMbr)) {
 			if(encryptUtil.md5HashString(password).equals(loginMbr.getPassword())) {
@@ -81,7 +83,7 @@ public class MemberService {
 				result.put("status", "password error");
 			}
 		}
-		// if member is not null
+		// if member is null
 		else {
 			result.put("status", "member not exist");
 		}
