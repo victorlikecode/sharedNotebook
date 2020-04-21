@@ -39,63 +39,17 @@ public class Page implements Serializable{
 	@ManyToOne(cascade=CascadeType.DETACH,fetch=FetchType.EAGER)
 	@JoinColumn(name="bookId")
 	private Notebook book;
-	
-	@OneToMany(cascade=CascadeType.ALL)
+
+	/*
+	@OneToMany(cascade=CascadeType.DETACH)
 	@JoinColumn(name="topic_id")
 	private List<Topics> topics;
-	
+	*/
 	private String content;
 
 	private Date createDate;
 	
 	private Date updateDate;
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public Notebook getBook() {
-		return book;
-	}
-
-	public void setBook(Notebook book) {
-		this.book = book;
-	}
-
-	public List<Topics> getTopics() {
-		return topics;
-	}
-
-	public void setTopics(List<Topics> topics) {
-		this.topics = topics;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public Date getCreateDate() {
-		return createDate;
-	}
-
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
-	}
-
-	public Date getUpdateDate() {
-		return updateDate;
-	}
-
-	public void setUpdateDate(Date updateDate) {
-		this.updateDate = updateDate;
-	}
 	
 	
 }

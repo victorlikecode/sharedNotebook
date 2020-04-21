@@ -6,19 +6,22 @@ import java.util.Objects;
 import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.stereotype.Repository;
 
 import victor.notebook.domain.Member;
 import victor.notebook.persistence.core.GenericJpaDAO;
+import victor.notebook.repository.IMemberDAO;
 
-public class MemberDAO extends GenericJpaDAO<Member, Integer> {
+@Repository
+public class MemberDAO extends GenericJpaDAO<Member, Integer>  implements IMemberDAO {
 
-	public int getcount() {
-		int result = 0;
-		String sql = "from Member ";
-		List<Member> memberList = (List<Member>) entityManager.createNamedQuery(sql, Member.class);
-		result = memberList.size();
-		return result;
-	}
+//	public int getcount() {
+//		int result = 0;
+//		String sql = "from Member ";
+//		List<Member> memberList = (List<Member>) entityManager.createNamedQuery(sql, Member.class);
+//		result = memberList.size();
+//		return result;
+//	}
 	
 	public Member getMemberByuserId(String userId) {
 		String hql = "from Member mbr ";
