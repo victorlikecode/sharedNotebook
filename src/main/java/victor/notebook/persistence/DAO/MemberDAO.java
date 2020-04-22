@@ -24,12 +24,12 @@ public class MemberDAO extends GenericJpaDAO<Member, Integer>  implements IMembe
 //	}
 	
 	public Member getMemberByuserId(String userId) {
-		String hql = "from Member mbr ";
+		String hql = "from Member";
 		Member result = null ;
 		if(StringUtils.isNoneBlank(userId)) {
-			hql += "where mbr.userid = :userid ";
+			hql += " where Member.userid = :userid ";
 		}
-		TypedQuery<Member> query = entityManager.createNamedQuery(hql, Member.class);
+		TypedQuery<Member> query = entityManager.createQuery(hql, Member.class);
 		if(StringUtils.isNoneBlank(userId)) {
 			query.setParameter("userid", userId);
 		}

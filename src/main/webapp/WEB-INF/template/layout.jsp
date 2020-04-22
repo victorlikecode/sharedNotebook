@@ -19,15 +19,12 @@
 <script type="text/javascript" src="${baseHref}/assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="${baseHref}/assets/js/main.js"></script>
 <script type="text/javascript" src="${baseHref}/assets/js/util.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.1/jquery.twbsPagination.min.js">
+</script>
 </head>
 <body>
 	<div id="wrapper">
 		<tiles:insertAttribute name="header"/>
-<!--  		<tiles:insertAttribute name="menu"/>-->
-		<tiles:insertAttribute name="body"/>
-		<tiles:insertAttribute name="footer"/>
-	</div>
-	
 	<nav id="menu">
 	<div class="inner">
 		<h2>Menu</h2>
@@ -41,5 +38,11 @@
 	</div>
 	<a class="close" href="#menu">Close</a>
 	</nav>
+
+<!--  		<tiles:insertAttribute name="menu"/>-->
+		<tiles:insertAttribute name="body"/>
+		<tiles:insertAttribute name="footer"/>
+	</div>
+	
 </body>
 </html>

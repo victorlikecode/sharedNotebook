@@ -3,6 +3,7 @@ package victor.notebook.persistence.DAO;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
@@ -24,5 +25,24 @@ public class PageDAO extends GenericJpaDAO<Page, Integer> implements IPageDAO {
 		List<Page> result = pages.getResultList();
 		
 		return result;
+	}
+	
+	public Integer pageNum(Integer bookId) {
+		int result = 0 ;
+		StringBuilder sb = new StringBuilder();
+		sb.append("select count(*) from Page where 1=1 ");
+		if(Objects.nonNull(bookId)) {
+			sb.append("and Page.book.id = :bookId");
+		}
+		Query query = entityManager.createQuery(sb.toString());
+		if(Objects.nonNull(bookId)) {
+			query.setParameter("bookId", bookId);
+		}
+		List<Object> number = query.getResultList();
+		
+		if(number.size()>0) {
+			result = (Integer)number.get(0);
+		}
+		return result ;
 	}
 }

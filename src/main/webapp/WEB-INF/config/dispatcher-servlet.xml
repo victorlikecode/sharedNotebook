@@ -12,8 +12,8 @@
         http://www.springframework.org/schema/util 
         http://www.springframework.org/schema/util/spring-util-4.0.xsd">
         	
-	<mvc:annotation-driven/>
- 	<context:component-scan base-package="victor.notebook.controller"/>
+	<context:annotation-config/>
+ 	<context:component-scan base-package="victor.notebook"/>
  	
  	<bean id="viewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"/>
 

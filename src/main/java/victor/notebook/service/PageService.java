@@ -17,4 +17,8 @@ public class PageService {
 	public List<Page> listPage(Integer bookid){
 		return pageDAO.showPagesBybookid(bookid);
 	}
+	
+	public Integer pageNum(Integer bookId) {
+		return pageDAO.pageNum(bookId);
+	}
 }
