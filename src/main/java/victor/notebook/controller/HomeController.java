@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,15 +19,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 import victor.notebook.annotation.SessionFilter;
+import victor.notebook.domain.Member;
 import victor.notebook.form.MemberForm;
 import victor.notebook.service.MemberService;
+import victor.notebook.util.SystemConstant;
 
 @Controller
 @RequestMapping(value="/member")
-public class HomeController {
+public class HomeController extends BaseController{
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private SystemConstant systemConstant;
 	
 	@RequestMapping(value="/login",method= {RequestMethod.GET,RequestMethod.POST})
 	public String login(HttpServletRequest request,Model model) {
@@ -38,6 +44,7 @@ public class HomeController {
 	@RequestMapping(value="/register",method= {RequestMethod.GET,RequestMethod.POST})
 	public String register(HttpServletRequest request,Model model) {
 		MemberForm form = new MemberForm();
+		form.setAction("add");
 		model.addAttribute("memberForm", form);
 
 		return "fia.addOrEditMember";
@@ -48,6 +55,9 @@ public class HomeController {
 	@SessionFilter
 	public String updateMember(HttpServletRequest request,Model model) {
 		MemberForm form = new MemberForm();
+		Member mbr = (Member) request.getSession().getAttribute(systemConstant.CurrentUser);
+		form.setAction("edit");
+		form.setId(mbr.getId());
 		model.addAttribute("memberForm", form);
 		return "fia.addOrEditMember";
 	}
@@ -55,15 +65,15 @@ public class HomeController {
 	@RequestMapping(value="/center",method= {RequestMethod.GET})
 	@SessionFilter
 	public String memberCenter(HttpServletRequest request,Model model) {
-		return "";
+		return "fia.MemberCenter";
 	}
 	
 	@RequestMapping(value="/dologin",method=RequestMethod.POST,produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String doLogin(HttpServletRequest request,Model model ,MemberForm form) {
+	public String doLogin(HttpServletRequest request,Model model ,@ModelAttribute MemberForm form) {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String,String> status = new HashMap();
-		if(StringUtils.isNoneBlank(form.getUsername())&&StringUtils.isNoneBlank(form.getPassword())) {
+		if(StringUtils.isBlank(form.getUserid())&&StringUtils.isBlank(form.getPassword())) {
 			status.put("status", "blank username or password");
 		}else {
 			status = memberService.loginStatus(request,form);			
@@ -85,5 +95,20 @@ public class HomeController {
 		MemberForm lf = new MemberForm();
         model.addAttribute("memberForm", lf);
 		return "forward:/member/login";
+	}
+	
+	@RequestMapping(value="/SaveOrUpdate",method=RequestMethod.POST,produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String doSaveOrUpdate(HttpServletRequest request,@ModelAttribute MemberForm form) {
+		return new SaveOrUpdateObject<MemberForm>(request,form){
+
+			@Override
+			public void doSaveOrUpdate(HttpServletRequest request, MemberForm vo, Object... objects) throws Exception {
+				// TODO Auto-generated method stub
+				memberService.saveOrUpdate(form);
+			}
+			
+		}.toString();
+		
 	}
 }

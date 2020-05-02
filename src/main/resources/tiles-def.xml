@@ -29,4 +29,9 @@
 		<put-attribute name="title" value="會員資訊更新"/>
 		<put-attribute name="body" value="/WEB-INF/page/member/AddOrEditMember.jsp"/>
 	</definition>
+	
+	<definition name="fia.MemberCenter" extends="base.definition">
+		<put-attribute name="title" value="會員資訊更新"/>
+		<put-attribute name="body" value="/WEB-INF/page/member/memberCenter.jsp"/>
+	</definition>
 </tiles-definitions>

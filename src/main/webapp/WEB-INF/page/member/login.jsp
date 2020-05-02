@@ -14,10 +14,10 @@
 					<form:form method="post" action="" modelAttribute="memberForm">
 						<div class="row gtr-uniform">
 							<div class="col-6 col-12">
-								<form:input path="username" id="demo-name" value="" placeholder="Username"/>
+								<form:input path="userid" id="demo-name" value="" placeholder="Userid"/>
 							</div>
 						<div class="col-6 col-12">
-							<form:input path="password" id="demo-name" value="" placeholder="Password"/>
+							<form:password path="password" id="demo-name" value="" placeholder="Password"/>
 						</div>
 						<div class="col-12">
 							<ul class="actions">
@@ -43,6 +43,7 @@ function doLogin(){
 		async:false,
 		success:function(data){
 			console.log(data);
+			window.location="${baseHref}/member/center";
 		},
 		error: function () {
             console.log('goes error') ;

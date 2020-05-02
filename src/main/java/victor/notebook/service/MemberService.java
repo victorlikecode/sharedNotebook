@@ -33,12 +33,12 @@ public class MemberService{
 //		return mbrdao.getcount();
 //	}
 	
-//	@Transactional(readOnly=false,rollbackFor=Exception.class)
+	@Transactional(readOnly=false,rollbackFor=Exception.class)
 	public void saveOrUpdate(MemberForm form) {
 		Member memberToEdit = null ;
 		if(form.getAction().equalsIgnoreCase("add")) {
 			memberToEdit = new Member();
-			memberToEdit.setUserid(form.getUsername());
+			memberToEdit.setUserid(form.getUserid());
 			String password = encryptUtil.md5HashString(form.getPassword());
 			memberToEdit.setPassword(password);
 			memberToEdit.setEmail(form.getEmail());
@@ -49,7 +49,7 @@ public class MemberService{
 			mbrdao.create(memberToEdit);
 		}else {
 			memberToEdit = mbrdao.read(form.getId());
-			if(StringUtils.isNotBlank(form.getPassword())) {
+			if(StringUtils.isNotBlank(form.getPassword())&form.getPassword().equals(form.getPasswordConfirm())) {
 				String password = encryptUtil.md5HashString(form.getPassword());
 				memberToEdit.setPassword(password);
 			}
@@ -66,11 +66,11 @@ public class MemberService{
 	public Map<String,String> loginStatus(HttpServletRequest request,MemberForm form) {
 		Map<String,String> result = new HashMap();
 		// input invalid
-		String userId = form.getUsername();
+		String userId = form.getUserid();
 		String password = form.getPassword();
-		if(StringUtils.isNoneBlank(userId)&&StringUtils.isNoneBlank(password)) {
-			result.put("status", "invalid Inputs");
-		}
+//		if(StringUtils.isNoneBlank(userId)&&StringUtils.isNoneBlank(password)) {
+//			result.put("status", "invalid Inputs");
+//		}
 		// if member is not null 
 		Member loginMbr = mbrdao.getMemberByuserId(userId);
 		if(Objects.nonNull(loginMbr)) {
