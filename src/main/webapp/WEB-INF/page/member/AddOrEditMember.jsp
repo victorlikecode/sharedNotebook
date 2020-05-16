@@ -15,7 +15,7 @@
 			</c:if>
 			<div class="row">
 				<div class="col-12-large">
-					<form:form method="post" action="" modelAttribute="memberForm">
+					<form:form method="post" action="" modelAttribute="memberForm" id="memberForm">
 					<form:hidden path="action" value="${memberForm.action}"/>
 					<form:hidden path="id" value="${memberForm.id }"/>
 						<div class="row gtr-uniform">
@@ -52,11 +52,12 @@
 
 <script>
 function doSubmit(){
-	var form = $('form#memberForm');
+	var form = $('form[id=memberForm]');
 	$.ajax({
 		type:'post',
-		form:form.serialize(),
+		data:form.serialize(),
 		url : '${baseHref}/member/SaveOrUpdate',
+		async:false,
 		success : function(data){
 			var status = data.status;
 			if(status=='ok'){

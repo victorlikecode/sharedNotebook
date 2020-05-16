@@ -35,15 +35,13 @@ public class HomeController extends BaseController{
 	private SystemConstant systemConstant;
 	
 	@RequestMapping(value="/login",method= {RequestMethod.GET,RequestMethod.POST})
-	public String login(HttpServletRequest request,Model model) {
-		MemberForm form = new MemberForm();
+	public String login(HttpServletRequest request,Model model,MemberForm form) {
 		model.addAttribute("memberForm", form);
 		return "fia.login";
 	}
 	
 	@RequestMapping(value="/register",method= {RequestMethod.GET,RequestMethod.POST})
-	public String register(HttpServletRequest request,Model model) {
-		MemberForm form = new MemberForm();
+	public String register(HttpServletRequest request,Model model,MemberForm form) {
 		form.setAction("add");
 		model.addAttribute("memberForm", form);
 
@@ -70,7 +68,7 @@ public class HomeController extends BaseController{
 	
 	@RequestMapping(value="/dologin",method=RequestMethod.POST,produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String doLogin(HttpServletRequest request,Model model ,@ModelAttribute MemberForm form) {
+	public String doLogin(HttpServletRequest request,Model model , MemberForm form) {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String,String> status = new HashMap();
 		if(StringUtils.isBlank(form.getUserid())&&StringUtils.isBlank(form.getPassword())) {
@@ -99,16 +97,20 @@ public class HomeController extends BaseController{
 	
 	@RequestMapping(value="/SaveOrUpdate",method=RequestMethod.POST,produces="application/json;charset=utf-8")
 	@ResponseBody
-	public String doSaveOrUpdate(HttpServletRequest request,@ModelAttribute MemberForm form) {
-		return new SaveOrUpdateObject<MemberForm>(request,form){
-
-			@Override
-			public void doSaveOrUpdate(HttpServletRequest request, MemberForm vo, Object... objects) throws Exception {
-				// TODO Auto-generated method stub
-				memberService.saveOrUpdate(form);
-			}
-			
-		}.toString();
+	public String doSaveOrUpdate(HttpServletRequest request,Model model,MemberForm form) {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String,String> status = new HashMap();
+		String result = "";
+		try {
+			memberService.saveOrUpdate(form);
+			status.put("status", "ok");
+			status.put("message", "success");
+			result = mapper.writeValueAsString(status);
+		}catch(Exception e) {
+			result = "{\"status\":\"fail\",\"message\":\""+e.toString()+"\"}";
+		}
+		
+		return result;
 		
 	}
 }

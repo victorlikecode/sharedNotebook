@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class EncryptUtil {
 
-	public String md5HashString(String str) {
+	public static String md5HashString(String str) {
 		MessageDigest md;
 		try {
 			md = MessageDigest.getInstance("MD5");

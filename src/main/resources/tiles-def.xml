@@ -31,7 +31,17 @@
 	</definition>
 	
 	<definition name="fia.MemberCenter" extends="base.definition">
-		<put-attribute name="title" value="會員資訊更新"/>
+		<put-attribute name="title" value="會員中心"/>
 		<put-attribute name="body" value="/WEB-INF/page/member/memberCenter.jsp"/>
+	</definition>
+	
+	<definition name="fia.Notebooks" extends="base.definition">
+		<put-attribute name="title" value="所有筆記"/>
+		<put-attribute name="body" value="/WEB-INF/page/notebooks/notebookList.jsp"/>
+	</definition>
+	
+	<definition name="fia.NotebookInfo" extends="base.definition">
+		<put-attribute name="title" value="筆記資訊更新"/>
+		<put-attribute name="body" value="/WEB-INF/page/notebooks/AddOrEditNotebook.jsp"/>
 	</definition>
 </tiles-definitions>
