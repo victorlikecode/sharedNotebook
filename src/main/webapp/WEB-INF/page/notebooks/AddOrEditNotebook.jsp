@@ -19,6 +19,7 @@
 					</div>
 					<div class="col-6 col-12-xsmall">
 						<select name="demo-category" id="demo-category">
+							<!-- 群組功能待增加 -->
 							<option value="">- 筆記本群組 -</option>
 							<option value="1">Manufacturing</option>
 							<option value="1">Shipping</option>

@@ -18,36 +18,20 @@
 				<thead>
 					<tr>
 						<th>筆記本名稱</th>
-						<th>描述</th>
+						<th>觀看人數</th>
+						<th>是否公開</th>
 						<th>操作選項</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>Item One</td>
-						<td>Ante turpis integer aliquet porttitor.</td>
-						<td>29.99</td>
-					</tr>
-					<tr>
-						<td>Item Two</td>
-						<td>Vis ac commodo adipiscing arcu aliquet.</td>
-						<td>19.99</td>
-					</tr>
-					<tr>
-						<td>Item Three</td>
-						<td>Morbi faucibus arcu accumsan lorem.</td>
-						<td>29.99</td>
-					</tr>
-					<tr>
-						<td>Item Four</td>
-						<td>Vitae integer tempus condimentum.</td>
-						<td>19.99</td>
-					</tr>
-					<tr>
-						<td>Item Five</td>
-						<td>Ante turpis integer aliquet porttitor.</td>
-						<td>29.99</td>
-					</tr>
+					<c:forEach var="book" items="${notebook}" >
+						<tr>
+						<td>${book.title}</td>
+						<td>${book.view}</td>
+						<td>${book.isPrivate ? "是" : "否"}</td>
+						<td>測試</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 				<tfoot>
 					<tr>
