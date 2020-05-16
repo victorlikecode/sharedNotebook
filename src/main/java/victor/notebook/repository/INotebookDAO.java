@@ -7,4 +7,6 @@ import victor.notebook.persistence.core.IGenericJpaDAO;
 
 public interface INotebookDAO extends IGenericJpaDAO<Notebook,Integer> {
 	public List<Notebook> showBooksByMemberId(Integer memberId);
+	
+	public Notebook findBookById(Integer id);
 }

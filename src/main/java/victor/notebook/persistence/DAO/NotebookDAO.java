@@ -30,4 +30,19 @@ public class NotebookDAO extends GenericJpaDAO<Notebook, Integer> implements INo
 		
 		return result;
 	}
+
+	@Override
+	public Notebook findBookById(Integer id) {
+		// TODO Auto-generated method stub
+		StringBuilder sb = new StringBuilder();
+		sb.append("select book from Notebook book where 1 = 1 ");
+		
+		if(Objects.nonNull(id)) {
+			sb.append("and book.id = :bookid");
+		}
+		
+		TypedQuery<Notebook> notebook = entityManager.createQuery(sb.toString(),Notebook.class);
+		Notebook result = notebook.getResultList().get(0);
+		return result;
+	}
 }

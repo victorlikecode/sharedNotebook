@@ -88,4 +88,12 @@ public class MemberService{
 		return result;
 		
 	}
+	
+	public Member getMemberByUserId(String userId) {
+		if(StringUtils.isNoneBlank(userId)) {
+			return mbrdao.getMemberByuserId(userId);
+		}else {
+			return null;
+		}
+	}
 }
