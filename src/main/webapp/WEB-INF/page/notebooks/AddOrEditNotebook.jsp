@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
 
 <!-- Main -->
 <div id="main">
@@ -11,11 +13,15 @@
 			<p>在這裏你可以新增或設定是否公開筆記本</p>
 		</header>
 		<section>
-			<form method="post" action="#">
+			<form:form method="post" action="#" modelAttribute="notebookForm">
+				<form:hidden path="action" value="${notebookForm.action }"/>
+				<form:hidden path="memberId" value="${notebookForm.memberId }"/>
+				<form:hidden path="bookId" value="${notebookForm.bookId }"/>
 				<div class="row gtr-uniform">
 					<div class="col-6 col-12-xsmall">
-						<input type="text" name="demo-name" id="demo-name" value=""
-							placeholder="筆記名稱">
+						
+						<form:input path="title" id="demo-name" value=""
+							placeholder="筆記名稱"/>
 					</div>
 					<div class="col-6 col-12-xsmall">
 						<select name="demo-category" id="demo-category">
@@ -59,8 +65,8 @@
                                         </div>
                                         -->
 					<div class="col-6 col-12-small">
-						<input type="checkbox" id="demo-copy" name="demo-copy"> <label
-							for="demo-copy">是否公開</label>
+						<form:checkbox path="Public" id="demo-copy"/>
+						<label for="demo-copy">是否公開</label>
 					</div>
 					<div class="col-6 col-12-small">
 						<input type="checkbox" id="demo-human" name="demo-human"
@@ -73,7 +79,7 @@
 						</ul>
 					</div>
 				</div>
-			</form>
+			</form:form>
 		</section>
 	</div>
 </div>

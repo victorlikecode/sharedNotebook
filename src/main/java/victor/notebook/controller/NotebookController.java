@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import victor.notebook.annotation.SessionFilter;
 import victor.notebook.domain.Member;
 import victor.notebook.domain.Notebook;
+import victor.notebook.form.NotebookForm;
 import victor.notebook.service.NoteBookService;
 import victor.notebook.util.SystemConstant;
 
@@ -29,7 +30,7 @@ public class NotebookController {
 	private NoteBookService notebookService;
 	
 	@RequestMapping(value="/list",method= {RequestMethod.GET,RequestMethod.POST})
-	@SessionFilter
+//	@SessionFilter
 	public String listNotebook(HttpServletRequest req,Model model) {
 		// check member in session
 		Member recentUser = (Member)req.getSession().getAttribute(systemConstant.CurrentUser);
@@ -45,9 +46,26 @@ public class NotebookController {
 		return "fia.Notebooks";
 	}
 	
+	@RequestMapping(value="/addNotebook",method= {RequestMethod.GET,RequestMethod.POST})
+//	@SessionFilter
+	public String addnotebook(HttpServletRequest req,Model model,NotebookForm notebookform) {
+		Member logMember = (Member) req.getSession().getAttribute(systemConstant.CurrentUser);
+		notebookform.setAction("add");
+//		notebookform.setMemberId(logMember.getId());
+		
+		model.addAttribute("notebookForm", notebookform);		
+		return "fia.NotebookInfo";
+	}
+	
 	@RequestMapping(value="/edit/{noteId}",method= {RequestMethod.GET,RequestMethod.POST})
 //	@SessionFilter
-	public String addoreditnotebook(HttpServletRequest req,Model model,@PathVariable("noteId") int id) {
+	public String editnotebook(HttpServletRequest req,Model model,@PathVariable("noteId") int id,NotebookForm notebookform) {
+		Member logMember = (Member) req.getSession().getAttribute(systemConstant.CurrentUser);
+		notebookform.setAction("edit");
+//		notebookform.setMemberId(logMember.getId());
+		notebookform.setBookId(id);
+		
+		model.addAttribute("notebookForm", notebookform);
 		return "fia.NotebookInfo";
 	}
 	

@@ -28,7 +28,7 @@
 						<tr>
 						<td>${book.title}</td>
 						<td>${book.view}</td>
-						<td>${book.isPrivate ? "是" : "否"}</td>
+						<td>${book.isPrivate ? '是' : '否'}</td>
 						<td>測試</td>
 						</tr>
 					</c:forEach>
