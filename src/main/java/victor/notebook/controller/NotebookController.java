@@ -22,7 +22,7 @@ import victor.notebook.util.SystemConstant;
 
 @Controller
 @RequestMapping(value="/notebook")
-public class NotebookController {
+public class NotebookController extends BaseController{
 	
 	@Autowired
 	private SystemConstant systemConstant;
@@ -47,23 +47,26 @@ public class NotebookController {
 	}
 	
 	@RequestMapping(value="/addNotebook",method= {RequestMethod.GET,RequestMethod.POST})
-//	@SessionFilter
+	@SessionFilter
 	public String addnotebook(HttpServletRequest req,Model model,NotebookForm notebookform) {
 		Member logMember = (Member) req.getSession().getAttribute(systemConstant.CurrentUser);
 		notebookform.setAction("add");
-//		notebookform.setMemberId(logMember.getId());
+		notebookform.setMemberId(logMember.getId());
 		
 		model.addAttribute("notebookForm", notebookform);		
 		return "fia.NotebookInfo";
 	}
 	
 	@RequestMapping(value="/edit/{noteId}",method= {RequestMethod.GET,RequestMethod.POST})
-//	@SessionFilter
+	@SessionFilter
 	public String editnotebook(HttpServletRequest req,Model model,@PathVariable("noteId") int id,NotebookForm notebookform) {
 		Member logMember = (Member) req.getSession().getAttribute(systemConstant.CurrentUser);
+		Notebook note = notebookService.getNotebookById(id);
 		notebookform.setAction("edit");
-//		notebookform.setMemberId(logMember.getId());
+		notebookform.setMemberId(logMember.getId());
 		notebookform.setBookId(id);
+		notebookform.setTitle(note.getTitle());
+		notebookform.setPublic(!note.isPrivate());
 		
 		model.addAttribute("notebookForm", notebookform);
 		return "fia.NotebookInfo";
@@ -78,8 +81,16 @@ public class NotebookController {
 	
 	@RequestMapping(value="/SaveOrUpdate",method= {RequestMethod.POST},produces="application/json; charset=utf-8")
 	@ResponseBody
-	public String saveOrUpdate(HttpServletRequest req,Model model) {
-		notebookService.saveOrupdate();
-		return "" ;
+	public String saveOrUpdate(HttpServletRequest req,Model model, NotebookForm notebookform) {
+		return new SaveOrUpdateObject<NotebookForm>(req,notebookform) {
+
+			@Override
+			public void doSaveOrUpdate(HttpServletRequest request, NotebookForm vo, Object... objects)
+					throws Exception {
+				// TODO Auto-generated method stub
+				notebookService.saveOrupdate(vo);
+			}
+			
+		}.toString();
 	}
 }

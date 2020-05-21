@@ -39,4 +39,24 @@ public class MemberDAO extends GenericJpaDAO<Member, Integer>  implements IMembe
 		}
 		return result ;
 	}
+
+	@Override
+	public Member getMemberById(Integer memberId) {
+		// TODO Auto-generated method stub
+		String hql = "from Member mbr ";
+		if(Objects.nonNull(memberId)) {
+			hql += "where mbr.id = :memberId ";
+		}
+		
+		TypedQuery<Member> query = entityManager.createQuery(hql, Member.class);
+		
+		if(Objects.nonNull(memberId)) {
+			query.setParameter("memberId", memberId);
+		}
+		if(query.getResultList().size()>0) {
+			return query.getResultList().get(0);			
+		}else {
+			return null;			
+		}
+	}
 }

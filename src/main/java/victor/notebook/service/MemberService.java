@@ -96,4 +96,8 @@ public class MemberService{
 			return null;
 		}
 	}
+	
+	public Member getMemberByMemberId(Integer memberId) {
+		return mbrdao.getMemberById(memberId);
+	}
 }
