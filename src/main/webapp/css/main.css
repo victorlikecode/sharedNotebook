@@ -1,0 +1,38 @@
+.wrap{
+    display: flex;
+    justify-self: auto;
+    margin-top: 2em;
+}
+
+.row-4{
+
+    display: flex;
+    flex-flow: row;
+}
+
+.content{
+    margin-left: 2em;
+}
+
+img.icon{
+    height:100px;
+    width:140px;
+    margin: 1em,1em,1em,1em;
+}
+
+.note-icon {
+    height: 100vh;
+    min-height: 500px;
+    background-image: url('../images/notebook.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.note-page{
+    height:100vh;
+    min-height:600px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}

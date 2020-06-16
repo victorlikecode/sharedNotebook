@@ -3,27 +3,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %><!DOCTYPE html>
 
-<div id="page" class="page-number">
-	<a class="arrow" href="javascript:void(0)">
-		<img src="images/arrow-1-left.png" alt="第一頁">
-	</a>
-	<a class="arrow" href="javascript:void(0)">
-		<img src="images/arrow-1-left.png" alt="上一頁">
-	</a>
-	<a class="select-number" href="#">1</a>
-	<a href="#">2</a>
-	<a href="#">3</a>
-	<a href="#">4</a>
-	<a href="#">5</a>
-	<span>...</span>
-
-	<a class="arrow" href="#">
-		<img src="images/arrow-right.png" alt="下一頁">
-	</a>
-	<a class="arrow" href="#">
-		<img src="images/arrow-1-right.png" alt="最後一頁">
-	</a>
-</div>
+<nav aria-label="Page navigation example">
+            <ul class="pagination pagination-lg justify-content-center">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
 
 <script>
 

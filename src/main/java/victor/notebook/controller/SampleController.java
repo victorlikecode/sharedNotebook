@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(value="/test")
 public class SampleController {
 
-	@RequestMapping(value="/testPage",method=RequestMethod.GET)
+	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String getTest() {
 		System.out.println("fia.content");
-		return "fia.content" ;
+		return "index" ;
 	}
 }

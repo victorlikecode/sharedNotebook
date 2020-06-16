@@ -46,6 +46,8 @@ public class Page implements Serializable{
 	private List<Topics> topics;
 	*/
 	private String content;
+	
+	private int pageNum;
 
 	private Date createDate;
 	

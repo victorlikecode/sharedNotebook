@@ -27,7 +27,7 @@ public class PageDAO extends GenericJpaDAO<Page, Integer> implements IPageDAO {
 		return result;
 	}
 	
-	public Integer pageNum(Integer bookId) {
+	public Integer totalPage(Integer bookId) {
 		int result = 0 ;
 		StringBuilder sb = new StringBuilder();
 		sb.append("select count(*) from Page where 1=1 ");
@@ -44,5 +44,27 @@ public class PageDAO extends GenericJpaDAO<Page, Integer> implements IPageDAO {
 			result = (Integer)number.get(0);
 		}
 		return result ;
+	}
+	
+	public boolean isPageNumCollision(Integer bookid,Integer pageNum) {
+		boolean result = false;
+		StringBuilder sb = new StringBuilder();
+		sb.append("from Page where 1=1 ");
+		if(Objects.nonNull(bookid)) {
+			sb.append("and Page.book.id = :bookId");
+		}
+		
+		if(Objects.nonNull(pageNum)) {
+			sb.append("and Page.pageNum = :pageNum");	
+		}
+		
+		Query query = entityManager.createQuery(sb.toString(), Page.class);
+		List<Page> pages = query.getResultList();
+		
+		if(pages.size()>0) {
+			result = true;
+		}
+		
+		return result;
 	}
 }

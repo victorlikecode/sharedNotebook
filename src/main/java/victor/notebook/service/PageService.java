@@ -18,7 +18,11 @@ public class PageService {
 		return pageDAO.showPagesBybookid(bookid);
 	}
 	
-	public Integer pageNum(Integer bookId) {
-		return pageDAO.pageNum(bookId);
+	public Integer totalPage(Integer bookId) {
+		return pageDAO.totalPage(bookId);
+	}
+	
+	public boolean isPageNumColision(Integer bookid,Integer pageNum) {
+		return pageDAO.isPageNumCollision(bookid, pageNum);
 	}
 }
