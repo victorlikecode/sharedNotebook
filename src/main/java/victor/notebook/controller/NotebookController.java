@@ -29,22 +29,6 @@ public class NotebookController extends BaseController{
 	@Autowired
 	private NoteBookService notebookService;
 	
-	@RequestMapping(value="/list",method= {RequestMethod.GET,RequestMethod.POST})
-//	@SessionFilter
-	public String listNotebook(HttpServletRequest req,Model model) {
-		// check member in session
-		Member recentUser = (Member)req.getSession().getAttribute(systemConstant.CurrentUser);
-//		if(Objects.nonNull(recentUser)) {
-//			
-//		}
-//		// if not in session
-//		else {
-//			
-//		}
-		List<Notebook> notebooks = notebookService.listNotebookByMemberId(recentUser.getId());
-		model.addAttribute("notebook", notebooks);
-		return "fia.Notebooks";
-	}
 	
 	@RequestMapping(value="/addNotebook",method= {RequestMethod.GET,RequestMethod.POST})
 	@SessionFilter
@@ -54,7 +38,7 @@ public class NotebookController extends BaseController{
 		notebookform.setMemberId(logMember.getId());
 		
 		model.addAttribute("notebookForm", notebookform);		
-		return "fia.NotebookInfo";
+		return "notebooks/AddOrEditNotebooks";
 	}
 	
 	@RequestMapping(value="/edit/{noteId}",method= {RequestMethod.GET,RequestMethod.POST})
@@ -69,7 +53,7 @@ public class NotebookController extends BaseController{
 		notebookform.setPublic(!note.isPrivate());
 		
 		model.addAttribute("notebookForm", notebookform);
-		return "fia.NotebookInfo";
+		return "notebooks/AddOrEditNotebooks";
 	}
 	
 	@RequestMapping(value="/showPage/{id}",method= {RequestMethod.GET,RequestMethod.POST})

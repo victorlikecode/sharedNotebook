@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %><!DOCTYPE html>
 
+<!-- 分頁工具 -->
+
 <nav aria-label="Page navigation example">
             <ul class="pagination pagination-lg justify-content-center">
               <li class="page-item">

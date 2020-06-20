@@ -37,15 +37,15 @@ public class HomeController extends BaseController{
 	@RequestMapping(value="/login",method= {RequestMethod.GET,RequestMethod.POST})
 	public String login(HttpServletRequest request,Model model,MemberForm form) {
 		model.addAttribute("memberForm", form);
-		return "fia.login";
+		return "member/login";
 	}
 	
-	@RequestMapping(value="/register",method= {RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value="/signup",method= {RequestMethod.GET,RequestMethod.POST})
 	public String register(HttpServletRequest request,Model model,MemberForm form) {
 		form.setAction("add");
 		model.addAttribute("memberForm", form);
 
-		return "fia.addOrEditMember";
+		return "member/signup";
 	}
 
 	
@@ -60,10 +60,10 @@ public class HomeController extends BaseController{
 		return "fia.addOrEditMember";
 	}
 	
-	@RequestMapping(value="/center",method= {RequestMethod.GET})
-	@SessionFilter
+	@RequestMapping(value="/dashboard",method= {RequestMethod.GET})
+//	@SessionFilter
 	public String memberCenter(HttpServletRequest request,Model model) {
-		return "fia.MemberCenter";
+		return "member/dashboard";
 	}
 	
 	@RequestMapping(value="/dologin",method=RequestMethod.POST,produces="application/json;charset=utf-8")

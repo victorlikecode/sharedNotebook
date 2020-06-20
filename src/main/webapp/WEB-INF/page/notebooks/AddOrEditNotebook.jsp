@@ -4,83 +4,17 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="<c:url value="/css/main.css"/>">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    </head>
 
-<!-- Main -->
-<div id="main">
-	<div class="inner">
-		<header>
-			<h1>新增筆記本</h1>
-			<p>在這裏你可以新增或設定是否公開筆記本</p>
-		</header>
-		<section>
-			<form:form method="post" action="#" modelAttribute="notebookForm">
-				<form:hidden path="action" value="${notebookForm.action }"/>
-				<form:hidden path="memberId" value="${notebookForm.memberId }"/>
-				<form:hidden path="bookId" value="${notebookForm.bookId }"/>
-				<div class="row gtr-uniform">
-					<div class="col-6 col-12-xsmall">
-						
-						<form:input path="title" id="demo-name" value=""
-							placeholder="筆記名稱"/>
-					</div>
-					<div class="col-6 col-12-xsmall">
-						<select name="demo-category" id="demo-category">
-							<!-- 群組功能待增加 -->
-							<option value="">- 筆記本群組 -</option>
-							<option value="1">Manufacturing</option>
-							<option value="1">Shipping</option>
-							<option value="1">Administration</option>
-							<option value="1">Human Resources</option>
-						</select>
-					</div>
-					<div class="col-12">
-						<div class="textarea-wrapper">
-							<textarea name="demo-message" id="demo-message"
-								placeholder="新增描述" rows="1"
-								style="overflow: hidden; resize: none; height: 69px;"></textarea>
-						</div>
-					</div>
+    <body>
+    	
+    </body>
 
-					<!--
-                                        <div class="col-12">
-                                            <select name="demo-category" id="demo-category">
-                                                <option value="">- Category -</option>
-                                                <option value="1">Manufacturing</option>
-                                                <option value="1">Shipping</option>
-                                                <option value="1">Administration</option>
-                                                <option value="1">Human Resources</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-4 col-12-small">
-                                            <input type="radio" id="demo-priority-low" name="demo-priority" checked="">
-                                            <label for="demo-priority-low">Low</label>
-                                        </div>
-                                        <div class="col-4 col-12-small">
-                                            <input type="radio" id="demo-priority-normal" name="demo-priority">
-                                            <label for="demo-priority-normal">Normal</label>
-                                        </div>
-                                        <div class="col-4 col-12-small">
-                                            <input type="radio" id="demo-priority-high" name="demo-priority">
-                                            <label for="demo-priority-high">High</label>
-                                        </div>
-                                        -->
-					<div class="col-6 col-12-small">
-						<form:checkbox path="Public" id="demo-copy"/>
-						<label for="demo-copy">是否公開</label>
-					</div>
-					<div class="col-6 col-12-small">
-						<input type="checkbox" id="demo-human" name="demo-human"
-							checked=""> <label for="demo-human">是否...</label>
-					</div>
-					<div class="col-12">
-						<ul class="actions">
-							<li><input type="submit" value="儲存" class="primary"></li>
-							<li><input type="reset" value="重新填寫"></li>
-						</ul>
-					</div>
-				</div>
-			</form:form>
-		</section>
-	</div>
-</div>
-
+</html>
