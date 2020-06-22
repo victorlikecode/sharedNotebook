@@ -5,5 +5,5 @@ import org.springframework.stereotype.Component;
 @Component
 public class SystemConstant {
 
-	public final String CurrentUser = "CurrentUser";
+	public final static String CurrentUser = "CurrentUser";
 }

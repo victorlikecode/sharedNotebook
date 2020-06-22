@@ -63,7 +63,14 @@ public class MemberService{
 		}
 	}
 	
-	public Map<String,String> loginStatus(HttpServletRequest request,MemberForm form) {
+	/**
+	 * return format {"status":ok or fail,"message":訊息}
+	 * 
+	 * @param request
+	 * @param form
+	 * @return
+	 */
+	public Map<String,String> loginMessage(HttpServletRequest request,MemberForm form) {
 		Map<String,String> result = new HashMap();
 		// input invalid
 		String userId = form.getUserid();
@@ -72,18 +79,27 @@ public class MemberService{
 //			result.put("status", "invalid Inputs");
 //		}
 		// if member is not null 
-		Member loginMbr = mbrdao.getMemberByuserId(userId);
-		if(Objects.nonNull(loginMbr)) {
-			if(encryptUtil.md5HashString(password).equals(loginMbr.getPassword())) {
-				result.put("status", "success");
-				request.getSession().setAttribute(sysConst.CurrentUser, loginMbr);
-			}else {
-				result.put("status", "password error");
+		
+		try {
+			Member loginMbr = mbrdao.getMemberByuserId(userId);
+			if(Objects.nonNull(loginMbr)) {
+				if(encryptUtil.md5HashString(password).equals(loginMbr.getPassword())) {
+					result.put("status", "ok");
+					result.put("message", "login successful");
+					request.getSession().setAttribute(sysConst.CurrentUser, loginMbr);
+				}else {
+					result.put("status", "fail");
+					result.put("message", "login error");
+				}
 			}
-		}
-		// if member is null
-		else {
-			result.put("status", "member not exist");
+			// if member is null
+			else {
+				result.put("status", "fail");
+				result.put("message", "member dont exist");
+			}			
+		}catch(Exception e) {
+			result.put("status", "fail");
+			result.put("message", "database error");
 		}
 		return result;
 		

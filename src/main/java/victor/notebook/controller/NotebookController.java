@@ -29,8 +29,8 @@ public class NotebookController extends BaseController{
 	@Autowired
 	private NoteBookService notebookService;
 	
-	
-	@RequestMapping(value="/addNotebook",method= {RequestMethod.GET,RequestMethod.POST})
+	//新增Notebook
+	@RequestMapping(value="/addOne",method= {RequestMethod.GET,RequestMethod.POST})
 	@SessionFilter
 	public String addnotebook(HttpServletRequest req,Model model,NotebookForm notebookform) {
 		Member logMember = (Member) req.getSession().getAttribute(systemConstant.CurrentUser);
@@ -41,9 +41,10 @@ public class NotebookController extends BaseController{
 		return "notebooks/AddOrEditNotebooks";
 	}
 	
-	@RequestMapping(value="/edit/{noteId}",method= {RequestMethod.GET,RequestMethod.POST})
+	//編輯Notebook大綱
+	@RequestMapping(value="/editOne/{bookId}",method= {RequestMethod.GET,RequestMethod.POST})
 	@SessionFilter
-	public String editnotebook(HttpServletRequest req,Model model,@PathVariable("noteId") int id,NotebookForm notebookform) {
+	public String editnotebook(HttpServletRequest req,Model model,@PathVariable("bookId") int id,NotebookForm notebookform) {
 		Member logMember = (Member) req.getSession().getAttribute(systemConstant.CurrentUser);
 		Notebook note = notebookService.getNotebookById(id);
 		notebookform.setAction("edit");
@@ -56,13 +57,15 @@ public class NotebookController extends BaseController{
 		return "notebooks/AddOrEditNotebooks";
 	}
 	
-	@RequestMapping(value="/showPage/{id}",method= {RequestMethod.GET,RequestMethod.POST})
+	// 編輯筆記頁面
+	@RequestMapping(value="/editPages/{bookId}",method= {RequestMethod.GET,RequestMethod.POST})
 	@SessionFilter
-	public String showPages(HttpServletRequest req,Model model,@PathVariable("id") int id) {
+	public String showPages(HttpServletRequest req,Model model,@PathVariable("bookId") int id) {
 		// check pageService
 		return "";
 	}
 	
+	//儲存Notebook
 	@RequestMapping(value="/SaveOrUpdate",method= {RequestMethod.POST},produces="application/json; charset=utf-8")
 	@ResponseBody
 	public String saveOrUpdate(HttpServletRequest req,Model model, NotebookForm notebookform) {

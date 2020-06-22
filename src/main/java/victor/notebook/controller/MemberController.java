@@ -26,7 +26,7 @@ import victor.notebook.util.SystemConstant;
 
 @Controller
 @RequestMapping(value="/member")
-public class HomeController extends BaseController{
+public class MemberController extends BaseController{
 
 	@Autowired
 	private MemberService memberService;
@@ -34,12 +34,14 @@ public class HomeController extends BaseController{
 	@Autowired
 	private SystemConstant systemConstant;
 	
+	// 登入頁面
 	@RequestMapping(value="/login",method= {RequestMethod.GET,RequestMethod.POST})
 	public String login(HttpServletRequest request,Model model,MemberForm form) {
 		model.addAttribute("memberForm", form);
 		return "member/login";
 	}
 	
+	// 註冊頁面
 	@RequestMapping(value="/signup",method= {RequestMethod.GET,RequestMethod.POST})
 	public String register(HttpServletRequest request,Model model,MemberForm form) {
 		form.setAction("add");
@@ -48,7 +50,7 @@ public class HomeController extends BaseController{
 		return "member/signup";
 	}
 
-	
+	// 更新會員資訊頁面
 	@RequestMapping(value="/update",method= {RequestMethod.GET,RequestMethod.POST})
 	@SessionFilter
 	public String updateMember(HttpServletRequest request,Model model) {
@@ -60,12 +62,14 @@ public class HomeController extends BaseController{
 		return "fia.addOrEditMember";
 	}
 	
+	// 會員資訊頁面 dashboard
 	@RequestMapping(value="/dashboard",method= {RequestMethod.GET})
 //	@SessionFilter
 	public String memberCenter(HttpServletRequest request,Model model) {
 		return "member/dashboard";
 	}
 	
+	// 登入訊息回傳
 	@RequestMapping(value="/dologin",method=RequestMethod.POST,produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String doLogin(HttpServletRequest request,Model model , MemberForm form) {
@@ -74,7 +78,7 @@ public class HomeController extends BaseController{
 		if(StringUtils.isBlank(form.getUserid())&&StringUtils.isBlank(form.getPassword())) {
 			status.put("status", "blank username or password");
 		}else {
-			status = memberService.loginStatus(request,form);			
+			status = memberService.loginMessage(request,form);			
 		}
 		String result = "";
 		try {
@@ -82,7 +86,7 @@ public class HomeController extends BaseController{
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			result = "{\"status\":\"parse error\"}";
+			result = "{\"status\":\"fail\",\"message\":\"parse error\"}";
 		}
 		return result ;
 	}
