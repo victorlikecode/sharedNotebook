@@ -5,12 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping(value="/test")
-public class SampleController {
+public class IndexController {
 
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String getTest() {
-		System.out.println("fia.content");
 		return "index" ;
 	}
 }

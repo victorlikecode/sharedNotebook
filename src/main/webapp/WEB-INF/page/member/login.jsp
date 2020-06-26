@@ -59,6 +59,8 @@ function doLogin(){
 			console.log(data);
 			if(data.status=='ok'){
 				window.location.href="<c:url value="/member/dashboard"/>";				
+			}else{
+				console.log(data.message);
 			}
 		},
 		error: function () {

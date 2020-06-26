@@ -1,8 +1,5 @@
 package victor.notebook.controller;
 
-import java.util.List;
-import java.util.Objects;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,15 +53,7 @@ public class NotebookController extends BaseController{
 		model.addAttribute("notebookForm", notebookform);
 		return "notebooks/AddOrEditNotebooks";
 	}
-	
-	// 編輯筆記頁面
-	@RequestMapping(value="/editPages/{bookId}",method= {RequestMethod.GET,RequestMethod.POST})
-	@SessionFilter
-	public String showPages(HttpServletRequest req,Model model,@PathVariable("bookId") int id) {
-		// check pageService
-		return "";
-	}
-	
+		
 	//儲存Notebook
 	@RequestMapping(value="/SaveOrUpdate",method= {RequestMethod.POST},produces="application/json; charset=utf-8")
 	@ResponseBody
